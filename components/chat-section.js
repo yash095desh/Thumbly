@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import {
   Send,
-  Image,
   Upload,
   Loader2,
   Sparkles,
@@ -12,11 +11,15 @@ import {
   Edit3,
   X,
   Plus,
+  Camera,
 } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useUser } from "@clerk/nextjs";
+import Image from "next/image";
+
+
 
 // Reusable Modal
 const Modal = ({ isOpen, onClose, children }) => {
@@ -201,9 +204,11 @@ const EditModal = ({ isOpen, onClose, message, onSave, isLoading }) => {
         <div className="space-y-4">
           {message?.uploadedFile && (
             <div className="mb-3">
-              <img
+              <Image
                 src={message.uploadedFile.url}
                 alt="Original"
+                width={300}
+                height={200}
                 className="max-w-full h-32 rounded-lg object-cover"
               />
               <p className="text-xs text-muted-foreground mt-1">
@@ -251,7 +256,7 @@ const EditModal = ({ isOpen, onClose, message, onSave, isLoading }) => {
 };
 
 export default function ChatThumbnailGenerator() {
-  const {user} = useUser();
+  const { user } = useUser();
   const [inputPrompt, setInputPrompt] = useState("");
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -345,7 +350,7 @@ export default function ChatThumbnailGenerator() {
         body: JSON.stringify({
           prompt: finalPrompt,
           uploadedImage: uploadedFile?.url || null,
-          userId: user.id
+          userId: user.id,
         }),
       });
 
@@ -433,7 +438,7 @@ export default function ChatThumbnailGenerator() {
           style: formData.style,
           colors: formData.colors,
           additional: formData.additional,
-          userId: user?.id
+          userId: user?.id,
         }),
       });
 
@@ -471,7 +476,7 @@ export default function ChatThumbnailGenerator() {
         body: JSON.stringify({
           prompt: newPrompt,
           uploadedImage: editingMessage.uploadedFile?.url || null,
-          userId: user.id
+          userId: user.id,
         }),
       });
 
@@ -545,7 +550,7 @@ export default function ChatThumbnailGenerator() {
         {conversation.length === 0 && (
           <div className="text-center py-12">
             <div className="w-16 h-16 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Image className="w-8 h-8 text-purple-600" />
+              <Camera className="w-8 h-8 text-purple-600" />
             </div>
             <h3 className="text-lg font-semibold mb-2">
               Start Creating Thumbnails
@@ -586,9 +591,11 @@ export default function ChatThumbnailGenerator() {
                   <div>
                     {message.uploadedFile && (
                       <div className="mb-3">
-                        <img
+                        <Image
                           src={message.uploadedFile.url}
                           alt="Uploaded"
+                          width={200}
+                          height={150}
                           className="max-w-48 rounded-lg opacity-90"
                         />
                         <p className="text-xs text-white/70 mt-1">
@@ -607,17 +614,19 @@ export default function ChatThumbnailGenerator() {
                   <div>
                     {message.uploadedFile && (
                       <div className="mb-3">
-                        <img
+                        <Image
                           src={message.uploadedFile.url}
                           alt="Original"
-                          className="max-w-48 rounded-lg"
+                          width={192} // same as max-w-48 (48 * 4 = 192px)
+                          height={192} // safe default, can adjust
+                          className="rounded-lg object-cover"
                         />
                       </div>
                     )}
                     <div className="mb-3">
                       <p className="text-sm text-muted-foreground mb-2">
-                        Generated from: "
-                        {message.originalPrompt || message.prompt}"
+                        Generated from: &quot;
+                        {message.originalPrompt || message.prompt}&quot;
                         {message.wasEnhanced && (
                           <span className="ml-2 text-xs px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded border">
                             <Sparkles className="w-3 h-3 mr-1 inline" />{" "}
@@ -626,9 +635,11 @@ export default function ChatThumbnailGenerator() {
                         )}
                       </p>
                       {message.generatedImage && (
-                        <img
+                        <Image
                           src={message.generatedImage}
                           alt="Generated thumbnail"
+                          width={800}
+                          height={450}
                           className="w-full rounded-lg shadow-sm"
                         />
                       )}
@@ -701,9 +712,11 @@ export default function ChatThumbnailGenerator() {
           <div className="mb-4 p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <img
+                <Image
                   src={uploadedFile.url}
                   alt="Preview"
+                  width={48}
+                  height={48}
                   className="w-12 h-12 rounded object-cover"
                 />
                 <div>

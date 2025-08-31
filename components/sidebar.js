@@ -36,7 +36,7 @@ export function Sidebar({ isOpen, onClose }) {
             </h2>
             
             <Button className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 mb-4">
-              <Image className="mr-2 h-4 w-4" />
+              <Image className="mr-2 h-4 w-4" alt="thumbnail" />
               New Thumbnail
             </Button>
           </div>

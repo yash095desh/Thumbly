@@ -66,7 +66,7 @@ export function Hero() {
             <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl border border-white/20">
               <div className="w-full h-full bg-gradient-to-br from-purple-400 via-blue-500 to-emerald-400 flex items-center justify-center">
                 <div className="text-white text-center">
-                  <Image className="h-16 w-16 mx-auto mb-4 opacity-80" />
+                  <Image className="h-16 w-16 mx-auto mb-4 opacity-80"  alt="heroImage"/>
                   <p className="text-xl font-semibold">AI Thumbnail Preview</p>
                   <p className="text-purple-100 mt-2">Your next viral thumbnail starts here</p>
                 </div>

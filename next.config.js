@@ -1,10 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    serverActions: true, // required for Clerk
+    // Must be an object, not a boolean
+    serverActions: {
+      bodySizeLimit: "2mb", // optional, you can remove or adjust
+    },
   },
-  
-}
+};
 
-module.exports = nextConfig
-
+module.exports = nextConfig;
