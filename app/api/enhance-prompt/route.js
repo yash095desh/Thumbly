@@ -40,25 +40,24 @@ Enhancement Preferences:
 `;
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "gpt-5", 
       messages: [
         {
           role: "system",
           content: `You are an expert at enhancing thumbnail generation prompts.
-Your task is to transform user input into concise, visually descriptive prompts 
-that produce realistic, photo-like thumbnails (not artificial or cartoonish).
-Always emphasize professional, sharp imagery with clear focus and high contrast.
-Ensure the thumbnail includes bold, attention-grabbing text in white or other 
-contrasting colors that stand out against the background.`,
+    Your task is to transform user input into concise, visually descriptive prompts 
+    that produce realistic, photo-like thumbnails (not artificial or cartoonish).
+    Always emphasize professional, sharp imagery with clear focus and high contrast.
+    Ensure the thumbnail includes bold, attention-grabbing text in white or other 
+    contrasting colors that stand out against the background.`,
         },
         {
           role: "user",
           content: `Enhance this thumbnail generation prompt using the given preferences:\n\n${enhancementDetails}`,
         },
       ],
-      max_tokens: 250,
-      temperature: 0.8,
     });
+
 
     const enhancedPrompt = completion.choices[0]?.message?.content?.trim();
 
